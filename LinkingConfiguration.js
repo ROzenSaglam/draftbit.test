@@ -21,15 +21,7 @@ const linking = {
   enabled: Platform.OS === 'web' ? false : true,
   prefixes: [prefix],
   config: {
-    screens: {
-      BottomTabNavigator: {
-        screens: {
-          ChartsNavigator: { screens: {} },
-          HomeNavigator: { screens: {} },
-          ProfileNavigator: { screens: {} },
-        },
-      },
-    },
+    screens: {},
   },
 };
 

@@ -3,68 +3,8 @@ import { View, ActivityIndicator } from 'react-native';
 import * as SplashScreen from 'expo-splash-screen';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-export const DeviceVariables = {
-  Language: '',
-  Xano_Authtoken: '',
-  auth_header: '',
-  photoDefault:
-    'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png',
-  profilePhoto:
-    'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png',
-  userName: '',
-  __env__: 'Development',
-};
-export const AppVariables = {
-  address: '',
-  body: '',
-  categories: [],
-  categoryNavId: '',
-  category_options: '',
-  currentLat: '',
-  currentLong: '',
-  defaultImage:
-    'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mPsae+pBwAFZgIg57mChQAAAABJRU5ErkJggg==',
-  emailInput: '',
-  errorMessage: '',
-  filteredUserData: [],
-  geocodio_api_key: '69d74d444d6b7fc47690d75f4d90555fd05577d',
-  goBack: false,
-  itemCount: '',
-  latitude: '',
-  location: [41.025738927052714, 28.974150078151926],
-  longitude: '',
-  nameInput: '',
-  passwordInput: '',
-  picker: '',
-  priorityPicker: [
-    { label: 'Low', value: 'Low' },
-    { label: 'Medium', value: 'Medium' },
-    { label: 'High', value: 'High' },
-  ],
-  reminderDate: '',
-  selectedIdData: '',
-  setCategory: '',
-  setDate: '',
-  setId: '',
-  setPriority: '',
-  setStatus: '',
-  setTask: '',
-  statusCount: '',
-  statusPercentage: '',
-  statusPicker: [
-    { label: 'To do', value: 'To do' },
-    { label: 'In progress', value: 'In progress' },
-    { label: 'Completed', value: 'Completed' },
-  ],
-  taskDate: '',
-  taskImage: '',
-  taskName: '',
-  taskNote: '',
-  taskPriority: '',
-  taskStatus: '',
-  title: '',
-  userID: '',
-};
+export const DeviceVariables = { __env__: 'Development' };
+export const AppVariables = {};
 const GlobalVariableContext = React.createContext();
 const GlobalVariableUpdater = React.createContext();
 const keySuffix = '';

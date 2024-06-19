@@ -5,7 +5,15 @@ import {
   SafeAreaProvider,
   initialWindowMetrics,
 } from 'react-native-safe-area-context';
-import { View, Text, ActivityIndicator, AppState } from 'react-native';
+import {
+  View,
+  Text,
+  TextInput,
+  ActivityIndicator,
+  AppState,
+  Platform,
+  StatusBar,
+} from 'react-native';
 import { Provider as ThemeProvider } from '@draftbit/ui';
 import { QueryClient, QueryClientProvider } from 'react-query';
 
@@ -13,8 +21,6 @@ import AppNavigator from './AppNavigator';
 import Draftbit from './themes/Draftbit.js';
 import cacheAssetsAsync from './config/cacheAssetsAsync';
 import { GlobalVariableProvider } from './config/GlobalVariableContext';
-import { useFonts } from 'expo-font';
-import Fonts from './config/Fonts.js';
 SplashScreen.preventAutoHideAsync();
 
 Notifications.setNotificationHandler({
@@ -29,70 +35,7 @@ const queryClient = new QueryClient();
 
 const App = () => {
   const [areAssetsCached, setAreAssetsCached] = React.useState(false);
-
-  const [fontsLoaded] = useFonts({
-    Alata_400Regular: Fonts.Alata_400Regular,
-    Inter_500Medium: Fonts.Inter_500Medium,
-    Inter_600SemiBold: Fonts.Inter_600SemiBold,
-    Inter_400Regular: Fonts.Inter_400Regular,
-    Inter_600SemiBold: Fonts.Inter_600SemiBold,
-    Inter_300Light: Fonts.Inter_300Light,
-    Inter_400Regular: Fonts.Inter_400Regular,
-    Inter_500Medium: Fonts.Inter_500Medium,
-    Inter_600SemiBold: Fonts.Inter_600SemiBold,
-    Inter_700Bold: Fonts.Inter_700Bold,
-    Inter_400Regular: Fonts.Inter_400Regular,
-    Inter_500Medium: Fonts.Inter_500Medium,
-    Inter_500Medium: Fonts.Inter_500Medium,
-    Inter_500Medium: Fonts.Inter_500Medium,
-    Inter_700Bold: Fonts.Inter_700Bold,
-    Inter_500Medium: Fonts.Inter_500Medium,
-    Inter_500Medium: Fonts.Inter_500Medium,
-    Inter_500Medium: Fonts.Inter_500Medium,
-    Inter_500Medium: Fonts.Inter_500Medium,
-    Inter_600SemiBold: Fonts.Inter_600SemiBold,
-    Inter_300Light: Fonts.Inter_300Light,
-    Inter_600SemiBold: Fonts.Inter_600SemiBold,
-    Inter_300Light: Fonts.Inter_300Light,
-    Inter_300Light: Fonts.Inter_300Light,
-    Inter_400Regular: Fonts.Inter_400Regular,
-    Inter_500Medium: Fonts.Inter_500Medium,
-    Inter_600SemiBold: Fonts.Inter_600SemiBold,
-    Inter_300Light: Fonts.Inter_300Light,
-    Inter_400Regular: Fonts.Inter_400Regular,
-    Inter_500Medium: Fonts.Inter_500Medium,
-    Inter_600SemiBold: Fonts.Inter_600SemiBold,
-    Inter_400Regular: Fonts.Inter_400Regular,
-    Inter_500Medium: Fonts.Inter_500Medium,
-    Inter_300Light: Fonts.Inter_300Light,
-    Inter_400Regular: Fonts.Inter_400Regular,
-    Inter_600SemiBold: Fonts.Inter_600SemiBold,
-    Inter_400Regular: Fonts.Inter_400Regular,
-    Inter_500Medium: Fonts.Inter_500Medium,
-    Inter_600SemiBold: Fonts.Inter_600SemiBold,
-    Inter_300Light: Fonts.Inter_300Light,
-    Inter_400Regular: Fonts.Inter_400Regular,
-    Inter_500Medium: Fonts.Inter_500Medium,
-    Inter_600SemiBold: Fonts.Inter_600SemiBold,
-    Inter_700Bold: Fonts.Inter_700Bold,
-    Inter_300Light: Fonts.Inter_300Light,
-    Inter_500Medium: Fonts.Inter_500Medium,
-    Inter_600SemiBold: Fonts.Inter_600SemiBold,
-    Inter_700Bold: Fonts.Inter_700Bold,
-    Inter_500Medium: Fonts.Inter_500Medium,
-    Inter_600SemiBold: Fonts.Inter_600SemiBold,
-    Inter_400Regular: Fonts.Inter_400Regular,
-    Inter_500Medium: Fonts.Inter_500Medium,
-    Inter_500Medium: Fonts.Inter_500Medium,
-    Inter_600SemiBold: Fonts.Inter_600SemiBold,
-    Inter_400Regular: Fonts.Inter_400Regular,
-    Inter_500Medium: Fonts.Inter_500Medium,
-    Inter_600SemiBold: Fonts.Inter_600SemiBold,
-    Inter_400Regular: Fonts.Inter_400Regular,
-    Inter_500Medium: Fonts.Inter_500Medium,
-    Inter_600SemiBold: Fonts.Inter_600SemiBold,
-    Inter_700Bold: Fonts.Inter_700Bold,
-  });
+  const fontsLoaded = true;
 
   React.useEffect(() => {
     async function prepare() {
