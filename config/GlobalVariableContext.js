@@ -4,7 +4,7 @@ import * as SplashScreen from 'expo-splash-screen';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export const DeviceVariables = { __env__: 'Development' };
-export const AppVariables = {};
+export const AppVariables = { 'Bearer Token': 'UNSET' };
 const GlobalVariableContext = React.createContext();
 const GlobalVariableUpdater = React.createContext();
 const keySuffix = '';

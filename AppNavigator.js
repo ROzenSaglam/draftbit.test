@@ -1,19 +1,21 @@
-import { I18nManager, Platform, StyleSheet, Text, View } from 'react-native';
-import { systemWeights } from 'react-native-typography';
-import { Icon, Touchable } from '@draftbit/ui';
-import { NavigationContainer, DefaultTheme } from '@react-navigation/native';
-import { createStackNavigator } from '@react-navigation/stack';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import theme from './themes/Draftbit.js';
-import LinkingConfiguration from './LinkingConfiguration.js';
-import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import React from 'react';
-import useWindowDimensions from './utils/useWindowDimensions';
-
+import { Icon, Touchable, useTheme } from '@draftbit/ui';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { createDrawerNavigator } from '@react-navigation/drawer';
+import { DefaultTheme, NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
+import { I18nManager, Platform, StyleSheet, Text, View } from 'react-native';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { systemWeights } from 'react-native-typography';
+import LinkingConfiguration from './LinkingConfiguration';
 import BlankScreen from './screens/BlankScreen';
+import palettes from './themes/palettes';
+import Breakpoints from './utils/Breakpoints';
+import useWindowDimensions from './utils/useWindowDimensions';
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
+const Drawer = createDrawerNavigator();
 
 function DefaultAndroidBackIcon({ tintColor }) {
   return (
@@ -28,7 +30,25 @@ function DefaultAndroidBackIcon({ tintColor }) {
   );
 }
 
+function DefaultDrawerIcon({ tintColor, navigation }) {
+  return (
+    <Touchable
+      onPress={() => navigation.toggleDrawer()}
+      style={[styles.headerContainer, styles.headerContainerLeft]}
+    >
+      <Icon
+        name="EvilIcons/navicon"
+        size={27}
+        color={tintColor}
+        style={[styles.headerIcon, styles.headerIconLeft]}
+      />
+    </Touchable>
+  );
+}
+
 export default function RootAppNavigator() {
+  const theme = useTheme();
+
   return (
     <NavigationContainer
       theme={{
@@ -42,6 +62,7 @@ export default function RootAppNavigator() {
     >
       <Stack.Navigator
         screenOptions={({ navigation }) => ({
+          cardStyle: { flex: 1 },
           headerBackImage:
             Platform.OS === 'android' ? DefaultAndroidBackIcon : null,
         })}
