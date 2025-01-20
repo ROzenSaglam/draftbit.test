@@ -18,7 +18,7 @@ const BlankScreen = props => {
       if (!isFocused) {
         return;
       }
-      console.log(/* no custom function named props.test */ undefined);
+      console.log(/* invalid CustomFunctionCall */ undefined);
     } catch (err) {
       console.error(err);
     }
@@ -35,8 +35,8 @@ const BlankScreen = props => {
     >
       <Picker
         autoDismissKeyboard={true}
-        dropDownBackgroundColor={theme.colors.background.brand}
-        dropDownBorderColor={theme.colors.border.brand}
+        dropDownBackgroundColor={theme.colors.background.base}
+        dropDownBorderColor={theme.colors.border.base}
         dropDownBorderRadius={8}
         dropDownBorderWidth={1}
         dropDownTextColor={theme.colors.text.strong}

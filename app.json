@@ -59,7 +59,11 @@
       "package": "com.draftbit.untitledapp",
       "permissions": [],
       "versionCode": 1,
-      "adaptiveIcon": {}
+      "adaptiveIcon": {},
+      "blockedPermissions": [
+        "android.permission.READ_MEDIA_IMAGES",
+        "android.permission.READ_MEDIA_VIDEO"
+      ]
     },
     "plugins": [
       [
@@ -85,6 +89,7 @@
     "backgroundColor": "#FFFFFF",
     "allowFontScaling": true,
     "androidStatusBar": {},
+    "userInterfaceStyle": "automatic",
     "assetBundlePatterns": [
       "**/*"
     ],

@@ -1,7 +1,6 @@
 export const create = styles => styles;
 
-// Like StyleSheet.compose, but concatenates shared keys' values into arrays.
-export const compose = (style1, style2) => {
+export const compose2 = (style1, style2) => {
   const res = { ...style1 };
   if (!style1) {
     return style2;
@@ -24,6 +23,13 @@ export const compose = (style1, style2) => {
     }
   }
   return res;
+};
+
+// Like StyleSheet.compose, but concatenates shared keys' values into arrays.
+export const compose = (...styles) => {
+  return styles.reduce((acc, style) => {
+    return compose2(acc, style);
+  }, {});
 };
 
 export const getWidthValue = (v, width, isValid) => {

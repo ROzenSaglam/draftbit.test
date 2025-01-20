@@ -10,7 +10,6 @@ import * as qs from 'qs';
  * https://github.com/axios/axios/issues/6102
  * https://github.com/facebook/react-native/issues/39793
  */
-
 let isIos17OrNewer = false;
 if (Platform.OS === 'ios') {
   const splitVersion = osVersion.split('.');
@@ -41,9 +40,7 @@ export const encodeQueryParam = param => {
 };
 
 export const renderParam = value =>
-  typeof value === 'string' || Array.isArray(value)
-    ? value
-    : JSON.stringify(value);
+  typeof value === 'string' ? value : JSON.stringify(value);
 
 export const renderQueryString = (paramsDict, arrayFormat) => {
   if (arrayFormat) {
@@ -59,5 +56,3 @@ export const renderQueryString = (paramsDict, arrayFormat) => {
   );
   return !queries.length ? '' : '?' + queries.join('&');
 };
-
-export default encodeQueryParam;

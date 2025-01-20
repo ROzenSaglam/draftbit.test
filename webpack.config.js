@@ -1,5 +1,5 @@
 // Expo CLI will await this method so you can optionally return a promise.
-const createExpoWebpackConfigAsync = require("@expo/webpack-config");
+const createExpoWebpackConfigAsync = require('@expo/webpack-config');
 
 module.exports = async function (env, argv) {
   // https://github.com/expo/expo-cli/tree/master/packages/webpack-config#environment
@@ -7,7 +7,7 @@ module.exports = async function (env, argv) {
     ...env,
     pwa: true,
     babel: {
-      dangerouslyAddModulePathsToTranspile: ["@draftbit","@amplitude"],
+      dangerouslyAddModulePathsToTranspile: ['@draftbit', '@amplitude'],
     },
   };
 
@@ -36,7 +36,7 @@ module.exports = async function (env, argv) {
   // workers, then replaces everything in a single shot with a forced refresh,
   // avoiding the issues above, along with being a bit more explit to users.
   config.plugins.forEach(({ config }) => {
-    if (config && "skipWaiting" in config) {
+    if (config && 'skipWaiting' in config) {
       config.skipWaiting = false;
       config.clientsClaim = false;
     }

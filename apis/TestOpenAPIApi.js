@@ -26,7 +26,7 @@ export const gET$forgotPasswordGET = async (
 ) => {
   const paramsDict = {};
   if (email !== undefined) {
-    paramsDict['email'] = renderParam(email);
+    paramsDict['email'] = email;
   }
   const url = `https://x8ki-letl-twmt.n7.xano.io/api:cLhKECft/forgot_password${renderQueryString(
     paramsDict,
@@ -44,7 +44,15 @@ export const gET$forgotPasswordGET = async (
 
 export const useGET$forgotPasswordGET = (
   args = {},
-  { refetchInterval, handlers = {} } = {}
+  {
+    refetchInterval,
+    refetchOnWindowFocus,
+    refetchOnMount,
+    refetchOnReconnect,
+    retry,
+    staleTime,
+    handlers = {},
+  } = {}
 ) => {
   const Constants = GlobalVariables.useValues();
   const queryClient = useQueryClient();
@@ -53,6 +61,11 @@ export const useGET$forgotPasswordGET = (
     () => gET$forgotPasswordGET(Constants, args, handlers),
     {
       refetchInterval,
+      refetchOnWindowFocus,
+      refetchOnMount,
+      refetchOnReconnect,
+      retry,
+      staleTime,
       onSuccess: () =>
         queryClient.invalidateQueries(['testOpenAPIGET$forgotPasswordGETS']),
     }
@@ -64,6 +77,11 @@ export const FetchGET$forgotPasswordGET = ({
   onData = () => {},
   handlers = {},
   refetchInterval,
+  refetchOnWindowFocus,
+  refetchOnMount,
+  refetchOnReconnect,
+  retry,
+  staleTime,
   email,
 }) => {
   const Constants = GlobalVariables.useValues();
@@ -77,7 +95,15 @@ export const FetchGET$forgotPasswordGET = ({
     refetch,
   } = useGET$forgotPasswordGET(
     { email },
-    { refetchInterval, handlers: { onData, ...handlers } }
+    {
+      refetchInterval,
+      refetchOnWindowFocus,
+      refetchOnMount,
+      refetchOnReconnect,
+      retry,
+      staleTime,
+      handlers: { onData, ...handlers },
+    }
   );
 
   React.useEffect(() => {
@@ -115,7 +141,15 @@ export const pATCH$resetPasswordPATCH = async (
 
 export const usePATCH$resetPasswordPATCH = (
   args = {},
-  { refetchInterval, handlers = {} } = {}
+  {
+    refetchInterval,
+    refetchOnWindowFocus,
+    refetchOnMount,
+    refetchOnReconnect,
+    retry,
+    staleTime,
+    handlers = {},
+  } = {}
 ) => {
   const Constants = GlobalVariables.useValues();
   const queryClient = useQueryClient();
@@ -124,6 +158,11 @@ export const usePATCH$resetPasswordPATCH = (
     () => pATCH$resetPasswordPATCH(Constants, args, handlers),
     {
       refetchInterval,
+      refetchOnWindowFocus,
+      refetchOnMount,
+      refetchOnReconnect,
+      retry,
+      staleTime,
       onSuccess: () =>
         queryClient.invalidateQueries([
           'testOpenAPIPATCH$resetPasswordPATCHES',
@@ -152,7 +191,15 @@ export const pOST$verifyOtpPOST = async (
 
 export const usePOST$verifyOtpPOST = (
   args = {},
-  { refetchInterval, handlers = {} } = {}
+  {
+    refetchInterval,
+    refetchOnWindowFocus,
+    refetchOnMount,
+    refetchOnReconnect,
+    retry,
+    staleTime,
+    handlers = {},
+  } = {}
 ) => {
   const Constants = GlobalVariables.useValues();
   const queryClient = useQueryClient();
@@ -161,6 +208,11 @@ export const usePOST$verifyOtpPOST = (
     () => pOST$verifyOtpPOST(Constants, args, handlers),
     {
       refetchInterval,
+      refetchOnWindowFocus,
+      refetchOnMount,
+      refetchOnReconnect,
+      retry,
+      staleTime,
       onSuccess: () =>
         queryClient.invalidateQueries(['testOpenAPIPOST$verifyOtpPOSTS']),
     }
@@ -172,6 +224,11 @@ export const FetchPOST$verifyOtpPOST = ({
   onData = () => {},
   handlers = {},
   refetchInterval,
+  refetchOnWindowFocus,
+  refetchOnMount,
+  refetchOnReconnect,
+  retry,
+  staleTime,
   email,
   otp_code,
 }) => {
@@ -186,7 +243,15 @@ export const FetchPOST$verifyOtpPOST = ({
     refetch,
   } = usePOST$verifyOtpPOST(
     { email, otp_code },
-    { refetchInterval, handlers: { onData, ...handlers } }
+    {
+      refetchInterval,
+      refetchOnWindowFocus,
+      refetchOnMount,
+      refetchOnReconnect,
+      retry,
+      staleTime,
+      handlers: { onData, ...handlers },
+    }
   );
 
   React.useEffect(() => {
