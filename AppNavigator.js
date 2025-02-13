@@ -55,7 +55,7 @@ export default function RootAppNavigator() {
         ...DefaultTheme,
         colors: {
           ...DefaultTheme.colors,
-          background: '#FFFFFF',
+          background: theme.colors.background.base,
         },
       }}
       linking={LinkingConfiguration}

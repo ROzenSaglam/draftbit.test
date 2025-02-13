@@ -22,7 +22,8 @@ const cleanHeaders = headers =>
 export const gET$forgotPasswordGET = async (
   Constants,
   { email },
-  handlers = {}
+  handlers,
+  timeout
 ) => {
   const paramsDict = {};
   if (email !== undefined) {
@@ -32,14 +33,33 @@ export const gET$forgotPasswordGET = async (
     paramsDict,
     'brackets'
   )}`;
-  const options = {
-    headers: cleanHeaders({
-      Accept: 'application/json',
-      'Content-Type': 'application/json',
-    }),
-  };
-  const res = await fetch(url, options);
-  return handleResponse(res, handlers);
+  const controller = new AbortController();
+  let timeoutObj;
+  if (timeout) {
+    timeoutObj = setTimeout(() => {
+      const err = new Error(`Timeout after ${timeout}ms`);
+      err.__type = 'TIMEOUT';
+      controller.abort(err);
+    }, timeout);
+  }
+  try {
+    const res = await fetch(url, {
+      headers: cleanHeaders({
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      }),
+      signal: controller.signal,
+    });
+    timeoutObj && clearTimeout(timeoutObj);
+    return handleResponse(res, handlers);
+  } catch (e) {
+    if (e.__type === 'TIMEOUT') {
+      handlers.onTimeout?.();
+    } else if (timeoutObj) {
+      clearTimeout(timeoutObj);
+    }
+    throw e;
+  }
 };
 
 export const useGET$forgotPasswordGET = (
@@ -51,6 +71,7 @@ export const useGET$forgotPasswordGET = (
     refetchOnReconnect,
     retry,
     staleTime,
+    timeout,
     handlers = {},
   } = {}
 ) => {
@@ -58,7 +79,7 @@ export const useGET$forgotPasswordGET = (
   const queryClient = useQueryClient();
   return useQuery(
     ['testOpenAPIGET$forgotPasswordGET', args],
-    () => gET$forgotPasswordGET(Constants, args, handlers),
+    () => gET$forgotPasswordGET(Constants, args, handlers, timeout),
     {
       refetchInterval,
       refetchOnWindowFocus,
@@ -82,6 +103,7 @@ export const FetchGET$forgotPasswordGET = ({
   refetchOnReconnect,
   retry,
   staleTime,
+  timeout,
   email,
 }) => {
   const Constants = GlobalVariables.useValues();
@@ -102,20 +124,23 @@ export const FetchGET$forgotPasswordGET = ({
       refetchOnReconnect,
       retry,
       staleTime,
+      timeout,
       handlers: { onData, ...handlers },
     }
   );
 
   React.useEffect(() => {
-    if (!prevIsFocused && isFocused) {
+    if (!prevIsFocused && isFocused && refetchOnWindowFocus !== false) {
       refetch();
     }
-  }, [isFocused, prevIsFocused]);
+  }, [isFocused, prevIsFocused, refetchOnWindowFocus]);
 
   React.useEffect(() => {
     if (error) {
-      console.error('Fetch error: ' + error.status + ' ' + error.statusText);
       console.error(error);
+      if (error.status) {
+        console.error('Fetch error: ' + error.status + ' ' + error.statusText);
+      }
     }
   }, [error]);
   return children({ loading, data, error, refetchGET$forgotPassword: refetch });
@@ -124,19 +149,39 @@ export const FetchGET$forgotPasswordGET = ({
 export const pATCH$resetPasswordPATCH = async (
   Constants,
   { email, new_password },
-  handlers = {}
+  handlers,
+  timeout
 ) => {
   const url = `https://x8ki-letl-twmt.n7.xano.io/api:cLhKECft/reset_password`;
-  const options = {
-    body: JSON.stringify({ email: email, new_password: new_password }),
-    headers: cleanHeaders({
-      Accept: 'application/json',
-      'Content-Type': 'application/json',
-    }),
-    method: 'PATCH',
-  };
-  const res = await fetch(url, options);
-  return handleResponse(res, handlers);
+  const controller = new AbortController();
+  let timeoutObj;
+  if (timeout) {
+    timeoutObj = setTimeout(() => {
+      const err = new Error(`Timeout after ${timeout}ms`);
+      err.__type = 'TIMEOUT';
+      controller.abort(err);
+    }, timeout);
+  }
+  try {
+    const res = await fetch(url, {
+      body: JSON.stringify({ email: email, new_password: new_password }),
+      headers: cleanHeaders({
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      }),
+      method: 'PATCH',
+      signal: controller.signal,
+    });
+    timeoutObj && clearTimeout(timeoutObj);
+    return handleResponse(res, handlers);
+  } catch (e) {
+    if (e.__type === 'TIMEOUT') {
+      handlers.onTimeout?.();
+    } else if (timeoutObj) {
+      clearTimeout(timeoutObj);
+    }
+    throw e;
+  }
 };
 
 export const usePATCH$resetPasswordPATCH = (
@@ -148,6 +193,7 @@ export const usePATCH$resetPasswordPATCH = (
     refetchOnReconnect,
     retry,
     staleTime,
+    timeout,
     handlers = {},
   } = {}
 ) => {
@@ -155,7 +201,7 @@ export const usePATCH$resetPasswordPATCH = (
   const queryClient = useQueryClient();
   return useQuery(
     ['testOpenAPIPATCH$resetPasswordPATCH', args],
-    () => pATCH$resetPasswordPATCH(Constants, args, handlers),
+    () => pATCH$resetPasswordPATCH(Constants, args, handlers, timeout),
     {
       refetchInterval,
       refetchOnWindowFocus,
@@ -174,19 +220,39 @@ export const usePATCH$resetPasswordPATCH = (
 export const pOST$verifyOtpPOST = async (
   Constants,
   { email, otp_code },
-  handlers = {}
+  handlers,
+  timeout
 ) => {
   const url = `https://x8ki-letl-twmt.n7.xano.io/api:cLhKECft/verify_otp`;
-  const options = {
-    body: JSON.stringify({ email: email, otp_code: otp_code }),
-    headers: cleanHeaders({
-      Accept: 'application/json',
-      'Content-Type': 'application/json',
-    }),
-    method: 'POST',
-  };
-  const res = await fetch(url, options);
-  return handleResponse(res, handlers);
+  const controller = new AbortController();
+  let timeoutObj;
+  if (timeout) {
+    timeoutObj = setTimeout(() => {
+      const err = new Error(`Timeout after ${timeout}ms`);
+      err.__type = 'TIMEOUT';
+      controller.abort(err);
+    }, timeout);
+  }
+  try {
+    const res = await fetch(url, {
+      body: JSON.stringify({ email: email, otp_code: otp_code }),
+      headers: cleanHeaders({
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      }),
+      method: 'POST',
+      signal: controller.signal,
+    });
+    timeoutObj && clearTimeout(timeoutObj);
+    return handleResponse(res, handlers);
+  } catch (e) {
+    if (e.__type === 'TIMEOUT') {
+      handlers.onTimeout?.();
+    } else if (timeoutObj) {
+      clearTimeout(timeoutObj);
+    }
+    throw e;
+  }
 };
 
 export const usePOST$verifyOtpPOST = (
@@ -198,6 +264,7 @@ export const usePOST$verifyOtpPOST = (
     refetchOnReconnect,
     retry,
     staleTime,
+    timeout,
     handlers = {},
   } = {}
 ) => {
@@ -205,7 +272,7 @@ export const usePOST$verifyOtpPOST = (
   const queryClient = useQueryClient();
   return useQuery(
     ['testOpenAPIPOST$verifyOtpPOST', args],
-    () => pOST$verifyOtpPOST(Constants, args, handlers),
+    () => pOST$verifyOtpPOST(Constants, args, handlers, timeout),
     {
       refetchInterval,
       refetchOnWindowFocus,
@@ -229,6 +296,7 @@ export const FetchPOST$verifyOtpPOST = ({
   refetchOnReconnect,
   retry,
   staleTime,
+  timeout,
   email,
   otp_code,
 }) => {
@@ -250,20 +318,23 @@ export const FetchPOST$verifyOtpPOST = ({
       refetchOnReconnect,
       retry,
       staleTime,
+      timeout,
       handlers: { onData, ...handlers },
     }
   );
 
   React.useEffect(() => {
-    if (!prevIsFocused && isFocused) {
+    if (!prevIsFocused && isFocused && refetchOnWindowFocus !== false) {
       refetch();
     }
-  }, [isFocused, prevIsFocused]);
+  }, [isFocused, prevIsFocused, refetchOnWindowFocus]);
 
   React.useEffect(() => {
     if (error) {
-      console.error('Fetch error: ' + error.status + ' ' + error.statusText);
       console.error(error);
+      if (error.status) {
+        console.error('Fetch error: ' + error.status + ' ' + error.statusText);
+      }
     }
   }, [error]);
   return children({ loading, data, error, refetchPOST$verifyOtp: refetch });

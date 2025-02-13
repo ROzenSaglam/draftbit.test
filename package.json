@@ -18,7 +18,7 @@
     "preset": "jest-expo"
   },
   "dependencies": {
-    "@draftbit/ui": "50.8.1",
+    "@draftbit/ui": "50.8.8",
     "@expo/dev-server": "0.5.5",
     "@expo/html-elements": "^0.5.1",
     "@expo/vector-icons": "^14.0.0",

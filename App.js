@@ -5,11 +5,13 @@ import * as SplashScreen from 'expo-splash-screen';
 import {
   ActivityIndicator,
   AppState,
+  Appearance,
   Platform,
   StatusBar,
   Text,
   TextInput,
   View,
+  useColorScheme,
 } from 'react-native';
 import {
   SafeAreaFrameContext,
@@ -35,6 +37,57 @@ Notifications.setNotificationHandler({
 
 const queryClient = new QueryClient();
 
+// On web, Appearance.setColorScheme is not implemented
+// See https://github.com/necolas/react-native-web/issues/2703
+//
+// This reimplementation is a workaround to allow the app to switch between light and dark schemes
+// by storing the selection in the data-theme attribute of the document element.
+if (Platform.OS === 'web') {
+  Appearance.setColorScheme = scheme => {
+    document.documentElement.setAttribute('data-theme', scheme);
+  };
+
+  Appearance.getColorScheme = () => {
+    const systemValue = window.matchMedia('(prefers-color-scheme: dark)')
+      .matches
+      ? 'dark'
+      : 'light';
+    const userValue = document.documentElement.getAttribute('data-theme');
+    return userValue && userValue !== 'null' ? userValue : systemValue;
+  };
+
+  Appearance.addChangeListener = listener => {
+    // Listen for changes of system value
+    const systemValueListener = e => {
+      const newSystemValue = e.matches ? 'dark' : 'light';
+      const userValue = document.documentElement.getAttribute('data-theme');
+      listener({
+        colorScheme:
+          userValue && userValue !== 'null' ? userValue : newSystemValue,
+      });
+    };
+    const systemValue = window.matchMedia('(prefers-color-scheme: dark)');
+    systemValue.addEventListener('change', systemValueListener);
+
+    // Listen for changes of user set value
+    const observer = new MutationObserver(mutationsList => {
+      for (const mutation of mutationsList) {
+        if (mutation.attributeName === 'data-theme') {
+          listener({ colorScheme: Appearance.getColorScheme() });
+        }
+      }
+    });
+    observer.observe(document.documentElement, { attributes: true });
+
+    function remove(): void {
+      systemValue.removeEventListener('change', systemValueListener);
+      observer.disconnect();
+    }
+
+    return { remove };
+  };
+}
+
 const App = () => {
   const [areAssetsCached, setAreAssetsCached] = React.useState(false);
   const fontsLoaded = true;
@@ -54,6 +107,7 @@ const App = () => {
   }, []);
 
   const dimensions = useWindowDimensions();
+  const colorScheme = useColorScheme();
 
   // SafeAreaProvider sets the 'frame' once and does not update when the window size changes (on web).
   // This is particularly problematic for drawer navigators that depend on the frame size to render the drawer.
@@ -76,31 +130,43 @@ const App = () => {
   }
 
   return (
-    <SafeAreaProvider
-      initialMetrics={initialWindowMetrics}
-      onLayout={onLayoutRootView}
-    >
-      <SafeAreaFrameContextProvider
-        value={{
-          x: 0,
-          y: 0,
-          width: dimensions.width,
-          height: dimensions.height,
-        }}
+    <>
+      {Platform.OS === 'ios' ? (
+        <StatusBar
+          barStyle={colorScheme === 'dark' ? 'light-content' : 'dark-content'}
+        />
+      ) : null}
+      {Platform.OS === 'android' ? (
+        <StatusBar
+          barStyle={colorScheme === 'dark' ? 'light-content' : 'dark-content'}
+        />
+      ) : null}
+      <SafeAreaProvider
+        initialMetrics={initialWindowMetrics}
+        onLayout={onLayoutRootView}
       >
-        <GlobalVariableProvider>
-          <QueryClientProvider client={queryClient}>
-            <ThemeProvider
-              themes={[Draftbit]}
-              breakpoints={{}}
-              initialThemeName={'Draftbit'}
-            >
-              <AppNavigator />
-            </ThemeProvider>
-          </QueryClientProvider>
-        </GlobalVariableProvider>
-      </SafeAreaFrameContextProvider>
-    </SafeAreaProvider>
+        <SafeAreaFrameContextProvider
+          value={{
+            x: 0,
+            y: 0,
+            width: dimensions.width,
+            height: dimensions.height,
+          }}
+        >
+          <GlobalVariableProvider>
+            <QueryClientProvider client={queryClient}>
+              <ThemeProvider
+                themes={[Draftbit]}
+                breakpoints={{}}
+                initialThemeName={'Draftbit'}
+              >
+                <AppNavigator />
+              </ThemeProvider>
+            </QueryClientProvider>
+          </GlobalVariableProvider>
+        </SafeAreaFrameContextProvider>
+      </SafeAreaProvider>
+    </>
   );
 };
 
