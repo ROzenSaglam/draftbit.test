@@ -18,7 +18,7 @@
     "preset": "jest-expo"
   },
   "dependencies": {
-    "@draftbit/ui": "51.2.5",
+    "@draftbit/ui": "51.2.6",
     "@expo/dev-server": "0.5.5",
     "@expo/html-elements": "^0.5.1",
     "@expo/metro-runtime": "~3.2.3",

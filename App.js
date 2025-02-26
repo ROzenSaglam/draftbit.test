@@ -141,31 +141,31 @@ const App = () => {
           barStyle={colorScheme === 'dark' ? 'light-content' : 'dark-content'}
         />
       ) : null}
-      <SafeAreaProvider
-        initialMetrics={initialWindowMetrics}
-        onLayout={onLayoutRootView}
+      <ThemeProvider
+        themes={[Draftbit]}
+        breakpoints={{}}
+        initialThemeName={'Draftbit'}
       >
-        <SafeAreaFrameContextProvider
-          value={{
-            x: 0,
-            y: 0,
-            width: dimensions.width,
-            height: dimensions.height,
-          }}
+        <SafeAreaProvider
+          initialMetrics={initialWindowMetrics}
+          onLayout={onLayoutRootView}
         >
-          <GlobalVariableProvider>
-            <QueryClientProvider client={queryClient}>
-              <ThemeProvider
-                themes={[Draftbit]}
-                breakpoints={{}}
-                initialThemeName={'Draftbit'}
-              >
+          <SafeAreaFrameContextProvider
+            value={{
+              x: 0,
+              y: 0,
+              width: dimensions.width,
+              height: dimensions.height,
+            }}
+          >
+            <GlobalVariableProvider>
+              <QueryClientProvider client={queryClient}>
                 <AppNavigator />
-              </ThemeProvider>
-            </QueryClientProvider>
-          </GlobalVariableProvider>
-        </SafeAreaFrameContextProvider>
-      </SafeAreaProvider>
+              </QueryClientProvider>
+            </GlobalVariableProvider>
+          </SafeAreaFrameContextProvider>
+        </SafeAreaProvider>
+      </ThemeProvider>
     </>
   );
 };
