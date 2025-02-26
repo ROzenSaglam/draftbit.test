@@ -10,7 +10,6 @@ import { systemWeights } from 'react-native-typography';
 import LinkingConfiguration from './LinkingConfiguration';
 import BlankScreen from './screens/BlankScreen';
 import palettes from './themes/palettes';
-import Breakpoints from './utils/Breakpoints';
 import useWindowDimensions from './utils/useWindowDimensions';
 
 const Stack = createStackNavigator();
@@ -65,6 +64,12 @@ export default function RootAppNavigator() {
           cardStyle: { flex: 1 },
           headerBackImage:
             Platform.OS === 'android' ? DefaultAndroidBackIcon : null,
+          headerStyle: {
+            backgroundColor: theme.colors.background.base,
+            borderBottomColor: 'transparent',
+          },
+          headerTintColor: theme.colors.text.strong,
+          headerTitleStyle: theme.typography.headline5,
         })}
       >
         <Stack.Screen

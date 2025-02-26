@@ -22,7 +22,7 @@ import { QueryClient, QueryClientProvider } from 'react-query';
 import AppNavigator from './AppNavigator';
 import { GlobalVariableProvider } from './config/GlobalVariableContext';
 import cacheAssetsAsync from './config/cacheAssetsAsync';
-import Draftbit from './themes/Draftbit';
+import DraftbitDefault from './themes/DraftbitDefault';
 import useWindowDimensions from './utils/useWindowDimensions';
 
 SplashScreen.preventAutoHideAsync();
@@ -142,9 +142,9 @@ const App = () => {
         />
       ) : null}
       <ThemeProvider
-        themes={[Draftbit]}
+        themes={[DraftbitDefault]}
         breakpoints={{}}
-        initialThemeName={'Draftbit'}
+        initialThemeName={'Draftbit Default'}
       >
         <SafeAreaProvider
           initialMetrics={initialWindowMetrics}

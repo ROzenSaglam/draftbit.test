@@ -42,8 +42,8 @@
       "themeColor": "#000000"
     },
     "icon": "./assets/app/icon.png",
-    "name": "Github2",
-    "slug": "github2",
+    "name": "My App 80",
+    "slug": "my-app-80",
     "extra": {
       "eas": {
         "projectId": ""

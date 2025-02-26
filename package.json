@@ -1,8 +1,8 @@
 {
   "private": true,
-  "name": "github2",
-  "homepage": "https://github2.draftbit.app",
-  "description": "Github2, powered by Draftbit",
+  "name": "my-app-80",
+  "homepage": "https://my-app-80.draftbit.app",
+  "description": "My App 80, powered by Draftbit",
   "version": "1.0.0",
   "main": "node_modules/expo/AppEntry.js",
   "scripts": {
